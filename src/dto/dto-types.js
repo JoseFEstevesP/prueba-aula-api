@@ -43,3 +43,8 @@ export const passwordDTOSchemas = Type.String({
     maxLength: 'La clave debe de tener un máximo de 25 caracteres de longitud',
   },
 });
+export const permissionsDTOSchemas = Type.String({
+  errorMessage: {
+    type: 'El tipo nota no es valido, debe de ser una cadena de texto',
+  },
+});
