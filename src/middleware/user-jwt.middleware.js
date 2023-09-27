@@ -12,6 +12,7 @@ const userJWTDTO = async (req, res, next) => {
       coder(process.env.JWT_PRIVATE_KEY)
     );
     req.id = payload.id;
+    req.uidRol = payload.uidRol;
     next();
   } catch (error) {
     return res.status(401).send({ errors: ['Usuario no autorizado'] });

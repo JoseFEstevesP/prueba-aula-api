@@ -1,7 +1,4 @@
-import { Type } from '@sinclair/typebox';
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
-import addErrors from 'ajv-errors';
+import { regExpPassword } from '#Constants/reg-exp.js';
 import {
   emailDTOSchemas,
   idDTOSchemas,
@@ -9,7 +6,10 @@ import {
   passwordDTOSchemas,
   surnameDTOSchemas,
 } from '#Dto/dto-types.js';
-import { regExpPassword } from '#Constants/reg-exp.js';
+import { Type } from '@sinclair/typebox';
+import Ajv from 'ajv';
+import addErrors from 'ajv-errors';
+import addFormats from 'ajv-formats';
 const registerDTOSchema = Type.Object(
   {
     uid: idDTOSchemas,
@@ -17,6 +17,7 @@ const registerDTOSchema = Type.Object(
     surname: surnameDTOSchemas,
     email: emailDTOSchemas,
     password: passwordDTOSchemas,
+    uidRol: idDTOSchemas,
   },
   {
     additionalProperties: false,

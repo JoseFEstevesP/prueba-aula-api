@@ -10,7 +10,10 @@ const userLoginController = async (req, res) => {
   const checkPassword = await compare(password, existingUserByEmail.password);
   if (!checkPassword)
     return res.status(401).send({ errors: ['Credenciales incorrectas'] });
-  const jwtConstructor = new SignJWT({ id: existingUserByEmail.uid });
+  const jwtConstructor = new SignJWT({
+    id: existingUserByEmail.uid,
+    uidRol: existingUserByEmail.uidRol,
+  });
   const jwt = await jwtConstructor
     .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
     .setIssuedAt()
