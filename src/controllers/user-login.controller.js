@@ -1,4 +1,5 @@
 import coder from '#Functions/coder.js';
+import { Rol } from '#Schemas/rol.schema.js';
 import { User } from '#Schemas/user.schema.js';
 import { compare } from 'bcrypt';
 import { SignJWT } from 'jose';
@@ -14,11 +15,12 @@ const userLoginController = async (req, res) => {
     id: existingUserByEmail.uid,
     uidRol: existingUserByEmail.uidRol,
   });
+  const { permissions } = await Rol.findByPk(existingUserByEmail.uidRol);
   const jwt = await jwtConstructor
     .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
     .setIssuedAt()
     .setExpirationTime('7d')
     .sign(coder(process.env.JWT_PRIVATE_KEY));
-  return res.send({ JWT: jwt });
+  return res.send({ JWT: jwt, rol: permissions });
 };
 export default userLoginController;
