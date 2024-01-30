@@ -1,8 +1,14 @@
-import { User } from '#Schemas/user.schema.js';
+import { sequelize } from '#Config/db.js';
+import { QueryTypes } from 'sequelize';
 
 const userSearchItemController = async (req, res) => {
-  const { uid } = req.params;
-  const user = await User.findByPk(uid);
+  const { id } = req.params;
+  const user = await sequelize.query(
+    `SELECT * FROM pbu2w_users WHERE id=${id}`,
+    {
+      type: QueryTypes.SELECT,
+    },
+  );
   if (!user)
     return res
       .status(404)
